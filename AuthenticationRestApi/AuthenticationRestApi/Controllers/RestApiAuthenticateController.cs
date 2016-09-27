@@ -23,17 +23,17 @@ namespace AuthenticationRestApi.Controllers
 
 		[Route( "api/authenticate/{login}/{password}" )]
 		[HttpGet]
-		public bool Authenticate( string login, string password )
+		public IHttpActionResult Authenticate( string login, string password )
 		{
 			IRepositoryAuthenticationData authenticationData = new RepositoryAuthenticateData();
 
-			return authenticationData.Authenticate( login, password );
+			return  Json(authenticationData.Authenticate( login, password ));
 		}
 
 
 		[Route( "api/confidentials/{email}" )]
 		[HttpGet]
-		public bool Confidentials( string email )
+		public IHttpActionResult Confidentials( string email )
 		{
 			//Authorization = "AWS" + " " + AWSAccessKeyId + ":" + Signature;
 			//Signature = Base64( HMAC-SHA1( MySecretAccessKeyID, UTF-8-Encoding-Of( email ) ) );
@@ -43,9 +43,9 @@ namespace AuthenticationRestApi.Controllers
 			try
 			{
 				string authorisationKey =  Request.Headers.GetValues("Authorization").FirstOrDefault<string>();
-				return authenticationData.AuthenticateWithAccessKey( email, authorisationKey );
+				return Json( authenticationData.AuthenticateWithAccessKey( email, authorisationKey ));
 			}
-			catch( Exception ex )
+			catch( Exception)
 			{
 				throw new Exception("Bad Authorisation Exception");
 			}
@@ -55,14 +55,14 @@ namespace AuthenticationRestApi.Controllers
 
 		[Route( "api/confidentials/{email}/{authorisationKey}" )]		
 		[HttpGet]
-		public bool Confidentials( string email, string authorisationKey )
+		public IHttpActionResult Confidentials( string email, string authorisationKey )
 		{
 			string decodedauthorisationKey = Utilities.GetString(HttpServerUtility.UrlTokenDecode(authorisationKey));
 
 			IRepositoryAuthenticationData authenticationData = new RepositoryAuthenticateData();
 			try
 			{
-				return authenticationData.AuthenticateWithAccessKey( email, decodedauthorisationKey );
+				return Json(authenticationData.AuthenticateWithAccessKey( email, decodedauthorisationKey ));
 			}
 			catch( Exception ex )
 			{
