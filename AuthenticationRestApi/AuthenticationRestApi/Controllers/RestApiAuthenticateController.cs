@@ -15,11 +15,6 @@ namespace AuthenticationRestApi.Controllers
 	public class RestApiAuthenticateController : ApiController
     {
 
-		[Route( "api/index" )]
-		public void Get()
-		{
-			string str = "Hello";			
-		}
 
 		[Route( "api/authenticate/{login}/{password}" )]
 		[HttpGet]
