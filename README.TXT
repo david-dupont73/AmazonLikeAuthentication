@@ -44,6 +44,7 @@ Idées d'évolutions:
 - Afin de découpler encore un peu plus ce modèle MVC, il est possible d'ajouter une couche d'injection de dépendance entre le Controller et le Repository (Modèle) et entre le modèle et l'accés aux données.
 - Possibilité de publier ce webService dans un container Docker (via la couche Mono) afin de déployer le service dans le Cloud et le load-balancer pour piloter au mieux la montée en charge.
 - Aller un peu plus loin dans le "split" de la solution (Controller, Model, Module d'authentification) dans le but d'en faire une architecture de microservices interconnectés.
+- Dans une logique TDD & CleanCode, Ajouter une couche de Test Unitaire (xUnit)
 
 
 
